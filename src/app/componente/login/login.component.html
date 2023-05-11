@@ -1,0 +1,17 @@
+<div class="center">
+  <h1>Bienvenidos</h1>
+  <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)" >
+    <div class="txt_field">
+      <input type="text" formControlName="user" required>
+      <span></span>
+      <label>Usuario</label>
+    </div>
+    <div class="txt_field">
+      <input type="password" formControlName="pass" required>
+      <span></span>
+      <label>Contraseña</label>
+    </div>
+    <input type="submit" value="Iniciar sesion">
+  </form>
+</div>
+

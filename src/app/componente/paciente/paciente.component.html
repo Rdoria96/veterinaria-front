@@ -1,0 +1,129 @@
+<div class="container">
+  <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)">
+    <div class="header">
+      <h1>Mascotas</h1>
+    </div>
+    <div class="cont">
+      <!--Nombre paciente  -->
+      <mat-form-field appearance="fill">
+        <input matInput required formControlName="nombre_paciente">
+        <mat-label><b>Nombre mascota</b></mat-label>
+      </mat-form-field>
+      <!--Fecha nacimiento  -->
+      <mat-form-field appearance="fill">
+        <input matInput [matDatepicker]="picker1" formControlName="f_nacimiento">
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+        <mat-label><b> Fecha nacimiento</b></mat-label>
+      </mat-form-field>
+      <!--Especie -->
+      <mat-form-field appearance="fill">
+        <mat-select required formControlName="especie">
+          <mat-option>-- Seleccione --</mat-option>
+          <mat-option *ngFor="let e of datosEspecie" [value]="e.nmid">{{e.nombre_especie}}</mat-option>
+        </mat-select>
+        <mat-label><b> Especie</b></mat-label>
+      </mat-form-field>
+      <!--Raza-->
+      <mat-form-field appearance="fill">
+        <mat-label><b>Raza</b></mat-label>
+        <mat-select required formControlName="raza">
+          <mat-option >Selecciona una raza</mat-option>
+          <mat-optgroup label="Perro">
+            <mat-option value="Labrador">Labrador</mat-option>
+            <mat-option value="Pitbull">Pitbull</mat-option>
+            <mat-option value="Bulldog">Bulldog</mat-option>
+            <mat-option value="Beagle">Beagle</mat-option>
+            <mat-option value="Chihuahua">Chihuahua</mat-option>
+            <mat-option value="Golden Retriever	">Golden Retriever	</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Gato">
+            <mat-option value="Angora">Angora</mat-option>
+            <mat-option value="Siames">Siames</mat-option>
+            <mat-option value="Persa">Persa</mat-option>
+            <mat-option value="Bengalí">Bengalí</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Ave">
+            <mat-option value="Loro">Loro</mat-option>
+            <mat-option value="Canario">Canario</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Tortuga">
+            <mat-option value="Tortuga de tierra">Tortuga de tierra</mat-option>
+            <mat-option value="Tortuga acuática">Tortuga acuática</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Iguana">
+            <mat-option value="Iguana verde">Iguana verde</mat-option>
+            <mat-option value="Iguana negra">Iguana negra</mat-option>
+          </mat-optgroup>
+          <mat-optgroup label="Conejo">
+            <mat-option value="Conejo enano">Conejo enano</mat-option>
+            <mat-option value="Conejo de Angora">Conejo de Angora</mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+
+
+      <!--Fecha registro-->
+      <mat-form-field appearance="fill">
+        <input matInput [matDatepicker]="picker2" formControlName="f_registro">
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+        <mat-label><b> Fecha registro</b></mat-label>
+      </mat-form-field>
+      <!--Ciudad -->
+      <mat-form-field appearance="fill">
+        <mat-select required formControlName="propietario">
+          <mat-option>-- Seleccione --</mat-option>
+          <mat-option *ngFor="let p of datosPropietario" [value]="p.nmid">{{p.ident_p}}</mat-option>
+        </mat-select>
+        <mat-label><b>Propietario</b></mat-label>
+      </mat-form-field>
+    </div>
+    <!--Guardar-->
+    <div class="btnguardar">
+      <button type="submit" class="guardar" (click)="refresh()">Guardar</button>
+    </div>
+  </form>
+</div>
+
+
+<div class="tabla">
+  <table mat-table [dataSource]="datosPaciente" class="mat-elevation-z8" >
+    <ng-container matColumnDef="nmid">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element"> {{element.nmid}} </td>
+    </ng-container>
+    <ng-container matColumnDef="nombre_paciente">
+      <th mat-header-cell *matHeaderCellDef>Nombre mascota</th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre_paciente}} </td>
+    </ng-container>
+    <ng-container matColumnDef="f_nacimiento">
+      <th mat-header-cell *matHeaderCellDef>Fecha nacimiento</th>
+      <td mat-cell *matCellDef="let element"> {{element.f_nacimiento}} </td>
+    </ng-container>
+    <ng-container matColumnDef="especie">
+      <th mat-header-cell *matHeaderCellDef>Especie</th>
+      <td mat-cell *matCellDef="let element"> {{element.nombre_especie}} </td>
+    </ng-container>
+    <ng-container matColumnDef="raza">
+      <th mat-header-cell *matHeaderCellDef>Raza</th>
+      <td mat-cell *matCellDef="let element"> {{element.raza}} </td>
+    </ng-container>
+    <ng-container matColumnDef="f_registro">
+      <th mat-header-cell *matHeaderCellDef>Fecha registro</th>
+      <td mat-cell *matCellDef="let element"> {{element.f_registro}} </td>
+    </ng-container>
+    <ng-container matColumnDef="propietario">
+      <th mat-header-cell *matHeaderCellDef>Propietario</th>
+      <td mat-cell *matCellDef="let element"> {{element.ident_p}} </td>
+    </ng-container>
+    <ng-container matColumnDef="accion">
+      <th mat-header-cell *matHeaderCellDef>Accion</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button  (click)="mostrar(element)"><mat-icon>edit</mat-icon></button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

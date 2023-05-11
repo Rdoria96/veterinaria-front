@@ -1,0 +1,74 @@
+
+.toolbar-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.header-toolbar {
+  padding: 0px 2px;
+  background:rgb(252, 188, 143);
+  position: fixed;
+  z-index: 2;
+}
+
+.icon {
+  padding-left: 5px;
+  color: #ffffff;
+  margin-right: 0.3em;
+
+}
+
+.user {
+  margin-left: 1%;
+  color: rgb(253, 253, 253);
+
+}
+
+
+.menu-logo {
+  margin: 100px 0px 0px 15px;
+  width: 300px;
+  object-fit: cover;
+  margin-right: 10%;
+  border-bottom: 1px solid rgb(248, 248, 248);
+}
+
+.sidenav-container {
+  flex: 1;
+}
+
+.content {
+  background-color: rgba(255, 255, 255, 0.973);
+}
+
+.sidenav {
+  background:  rgb(252, 188, 143);
+  width: 15%;
+  text-align: center;
+
+}
+
+mat-list-item{
+  margin-top: 10%;
+  width: 80%;
+  margin-left: 10%;
+  text-align: center;
+  border: none;
+
+}
+
+@media only screen and (max-width: 320px) {
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+}
+
+@media only screen and (min-width: 1224px) {
+
+}
