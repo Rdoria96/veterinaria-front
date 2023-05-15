@@ -6,8 +6,9 @@ import { Propietario } from 'src/app/interfaces/propietario';
 import { EspeciesService } from 'src/app/services/especies.service';
 import { PacienteService } from 'src/app/services/paciente.service';
 import { PropietarioService } from 'src/app/services/propietario.service';
+import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
-
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-paciente',
@@ -22,7 +23,7 @@ export class PacienteComponent implements OnInit {
   datosEspecie: any;
   datosPropietario: any;
 
-  constructor(private fb: FormBuilder, private servicepaciente: PacienteService, private servicepropietario: PropietarioService, private servicespecies: EspeciesService) { }
+  constructor(private fb: FormBuilder, private servicepaciente: PacienteService, private servicepropietario: PropietarioService, private servicespecies: EspeciesService, private datepipe: DatePipe) { }
   ngOnInit(): void {
     this.myForm = this.fb.group({
       nmid: [],
@@ -106,7 +107,7 @@ export class PacienteComponent implements OnInit {
     this.myForm.setValue({
        nmid: datos.nmid,
        nombre_paciente: datos.nombre_paciente,
-       f_nacimiento: datos.f_nacimiento,
+      f_nacimiento: datos.f_nacimiento,
        especie: datos.nmid_especie,
        raza: datos.raza,
        f_registro: datos.f_registro,
@@ -114,6 +115,50 @@ export class PacienteComponent implements OnInit {
     })
 
   }
+
+
+
+
+  exportar() {
+    const data: Paciente[] = this.datosPaciente.map((paciente: Paciente) => {
+      return {
+        nmid: paciente.nmid,
+        nombre_paciente: paciente.nombre_paciente,
+        f_nacimiento: paciente.f_nacimiento,
+        especie: paciente.especie?.nmid || '',
+        raza: paciente.raza,
+        f_registro: paciente.f_registro,
+        propietario: paciente.propietario?.ident_p || ''
+      };
+    });
+
+    //Convierte la data array en una hoja de calculo
+    const worksheet = XLSX.utils.json_to_sheet(data);
+
+    //Agrega hoja de calculo a libreria
+    const workbook = XLSX.utils.book_new();
+
+    //El worksheet se anexa a workbook con el nombre pacientes
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Pacientes');
+
+    //Convirte el workbook en un archivo excel
+    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    //Se instancia excelBuffer el cual se representa el archivo excel
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+    //Se genera un nombre para el archivo excel
+    const excelFilename = 'pacientes.xlsx';
+
+    //se genera un link para el archivo excel
+    const downloadLink = document.createElement('a');
+
+    //se genera un link para descargar el archivo excel
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.download = excelFilename;
+    downloadLink.click();
+  }
+
 
 
 }

@@ -4,7 +4,6 @@
   align-items: center;
   display: flex;
   margin-top: 30px;
-
 }
 
 h1 {
@@ -27,12 +26,11 @@ mat-form-field {
   width: 20vw;
 }
 
-
 .tabla {
   max-width: 62%;
   margin-top: 2%;
   margin-left: 14%;
-  margin-bottom: 5%;
+  margin-bottom: 4%;
 }
 
 th {
@@ -41,6 +39,11 @@ th {
 
 td {
   color: chocolate;
+}
+
+.btnguardar {
+  display: flex;
+  justify-content: center;
 }
 
 .btnguardar {
@@ -66,14 +69,38 @@ td {
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 767px) {
+  .cont {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-@media only screen and (max-width: 320px) {
+  .tabla {
+    width: 100%;
+    overflow-x: auto;
+  }
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cont {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tabla {
+    width: 100%;
+    overflow-x: auto;
+
+  }
 }
 
-@media only screen and (min-width: 1224px) {
 
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .cont {
+    grid-template-columns: 1fr;
+  }
+
+  .tabla {
+    width: 100%;
+    overflow-x: auto;
+  }
 }
