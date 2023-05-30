@@ -94,5 +94,13 @@ input[type="submit"]:hover{
   transition: .5s;
 }
 
+@media (max-width: 767px) {
+    .center{
+      width: 280px;
+    }
 
+    .center h1{
+      font-size: 15px;
 
+    }
+}

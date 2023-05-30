@@ -1,9 +1,9 @@
 <div class="container">
-  <form [formGroup]="myForm" (ngSubmit)="guardar(myForm)">
+  <form [formGroup]="myForm"  (ngSubmit)="guardar(myForm)">
     <div class="header">
       <h1>Mascotas</h1>
     </div>
-    <div class="cont">
+    <div class="content">
       <!--Nombre paciente  -->
       <mat-form-field appearance="fill">
         <input matInput required formControlName="nombre_paciente">
@@ -61,8 +61,6 @@
           </mat-optgroup>
         </mat-select>
       </mat-form-field>
-
-
       <!--Fecha registro-->
       <mat-form-field appearance="fill">
         <input matInput [matDatepicker]="picker2" formControlName="f_registro">
@@ -88,9 +86,12 @@
 
 
 <div class="tabla">
-  <button mat-raised-button (click)="exportar()">Exportar</button>
-  <br><br>
-  <table mat-table [dataSource]="datosPaciente" class="mat-elevation-z8" >
+  <button mat-raised-button style="margin-left: 90%; color: rgb(255, 255, 255); background-color: chocolate;" (click)="exportar()">Exportar</button>
+  <mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput [(ngModel)]="filtroNombrePaciente" #input>
+  </mat-form-field>
+  <table mat-table [dataSource]="datosPaciente | filter: filtroNombrePaciente"  class="mat-elevation-z8" >
     <ng-container matColumnDef="nmid">
       <th mat-header-cell *matHeaderCellDef>#</th>
       <td mat-cell *matCellDef="let element"> {{element.nmid}} </td>
@@ -105,7 +106,7 @@
     </ng-container>
     <ng-container matColumnDef="especie">
       <th mat-header-cell *matHeaderCellDef>Especie</th>
-      <td mat-cell *matCellDef="let element"> {{element.nombre_especie}} </td>
+      <td mat-cell *matCellDef="let element"> {{ element.nombre_especie }}  </td>
     </ng-container>
     <ng-container matColumnDef="raza">
       <th mat-header-cell *matHeaderCellDef>Raza</th>
@@ -128,4 +129,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>

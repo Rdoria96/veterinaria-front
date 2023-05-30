@@ -22,6 +22,7 @@ export class PacienteComponent implements OnInit {
   datosPaciente: any;
   datosEspecie: any;
   datosPropietario: any;
+  filtroNombrePaciente: string = '';
 
   constructor(private fb: FormBuilder, private servicepaciente: PacienteService, private servicepropietario: PropietarioService, private servicespecies: EspeciesService, private datepipe: DatePipe) { }
   ngOnInit(): void {
@@ -63,7 +64,6 @@ export class PacienteComponent implements OnInit {
     //Guardar Paciente
     guardar(form: FormGroup) {
       if (this.myForm.valid) {
-
         const especie: Especies = {
           nmid: this.myForm.get('especie')?.value,
           nombre_especie: ''
@@ -104,34 +104,38 @@ export class PacienteComponent implements OnInit {
     }
 
   mostrar(datos: {nmid:any,nombre_paciente: any,f_nacimiento:any,nmid_especie: any, raza: any,f_registro:any,nmid_propietario:any}) {
+    const f_nacimiento = new Date(datos.f_nacimiento);
+    f_nacimiento.setDate(f_nacimiento.getDate() + 1);
+    const f_registro = new Date(datos.f_registro);
+    f_registro.setDate(f_registro.getDate() + 1);
     this.myForm.setValue({
        nmid: datos.nmid,
        nombre_paciente: datos.nombre_paciente,
-      f_nacimiento: datos.f_nacimiento,
+      f_nacimiento: f_nacimiento,
        especie: datos.nmid_especie,
        raza: datos.raza,
-       f_registro: datos.f_registro,
+      f_registro: f_registro,
        propietario: datos.nmid_propietario
     })
-
   }
-
-
 
 
   exportar() {
     const data: Paciente[] = this.datosPaciente.map((paciente: Paciente) => {
+      const especie = paciente.especie?.nombre_especie || '';
+      const propietario = paciente.propietario?.ident_p || '';
       return {
         nmid: paciente.nmid,
         nombre_paciente: paciente.nombre_paciente,
         f_nacimiento: paciente.f_nacimiento,
-        especie: paciente.especie?.nmid || '',
+        especie: especie,
         raza: paciente.raza,
         f_registro: paciente.f_registro,
-        propietario: paciente.propietario?.ident_p || ''
+        propietario: propietario
       };
     });
 
+    console.log(data);
     //Convierte la data array en una hoja de calculo
     const worksheet = XLSX.utils.json_to_sheet(data);
 

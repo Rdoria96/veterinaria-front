@@ -54,7 +54,11 @@
 
 
 <div class="tabla">
-  <table mat-table [dataSource]="datosPropietario" class="mat-elevation-z8" >
+  <mat-form-field>
+    <mat-label>Filtro</mat-label>
+    <input matInput [(ngModel)]="filtroPropietario" #input>
+  </mat-form-field>
+  <table mat-table [dataSource]="datosPropietario | filtroPropietario: filtroPropietario" class="mat-elevation-z8" >
     <ng-container matColumnDef="nmid">
       <th mat-header-cell *matHeaderCellDef>#</th>
       <td mat-cell *matCellDef="let element"> {{element.nmid}} </td>

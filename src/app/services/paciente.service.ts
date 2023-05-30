@@ -8,7 +8,7 @@ import { Paciente } from '../interfaces/paciente';
 })
 export class PacienteService {
 
-  servidor ="http://localhost:8080/api"
+  servidor ="http://ec2-3-83-1-28.compute-1.amazonaws.com:8080/api"
   constructor(private servicio: HttpClient) { }
 
   getpaciente():Observable<any>{

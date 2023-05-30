@@ -61,3 +61,8 @@ mat-list-item {
 
 }
 
+@media (max-width: 767px){
+  .sidenav{
+    width: 40%;
+  }
+}

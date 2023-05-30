@@ -5,14 +5,14 @@ import { Propietario } from 'src/app/interfaces/propietario';
 import { HttpClient } from '@angular/common/http';
 import { Ciudad } from 'src/app/interfaces/ciudad';
 import { CiudadService } from 'src/app/services/ciudad.service';
-import {MatTableDataSource} from '@angular/material/table';
 import Swal from 'sweetalert2';
 
 
 @Component({
   selector: 'app-propietario',
   templateUrl: './propietario.component.html',
-  styleUrls: ['./propietario.component.css']
+  styleUrls: ['./propietario.component.css'],
+
 })
 
 export class PropietarioComponent implements OnInit {
@@ -20,6 +20,7 @@ export class PropietarioComponent implements OnInit {
   myForm!: FormGroup;
   datosPropietario: any;
   datosCiudad: any;
+  filtroPropietario: string = '';
 
 
   constructor(private fb: FormBuilder, private propservice: PropietarioService, private ciudadservice: CiudadService, private http: HttpClient) {
@@ -46,10 +47,6 @@ export class PropietarioComponent implements OnInit {
     this.ciudadservice.getCiudades().subscribe(datos => {
       this.datosCiudad = datos.dato;
     })
-
-
-
-
   }
 
 
@@ -79,9 +76,7 @@ export class PropietarioComponent implements OnInit {
         apellido_p: this.myForm.get('apellido_p')?.value,
         ciudad: ciudad,
         telefono_p: this.myForm.get('telefono_p')?.value
-
       }
-
 
       this.propservice.guardar(parametros).subscribe(dato => {
         Swal.fire('Exito', 'Registro exitoso', 'success');
@@ -90,9 +85,7 @@ export class PropietarioComponent implements OnInit {
       });
     } else {
       Swal.fire('Error', 'No se pudo guardar', 'error');
-
     }
-
   }
 
   mostrar(datos: { nmid: any, tipo_documento: any, ident_p: any, nombre_p: any, apellido_p: any, nmid_ciudad_p: any, telefono_p: any }) {

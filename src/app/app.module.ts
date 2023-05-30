@@ -19,6 +19,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SidebarComponent } from './componente/sidebar/sidebar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { FilterPipe } from './pipe/filter.pipe';
+import { FiltroPropietarioPipe } from './pipe/filtro-propietario.pipe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
 
 
 
@@ -29,6 +35,9 @@ import { DatePipe } from '@angular/common';
     PacienteComponent,
     PropietarioComponent,
     SidebarComponent,
+    FilterPipe,
+    FiltroPropietarioPipe,
+
 
 
   ],
@@ -47,7 +56,9 @@ import { DatePipe } from '@angular/common';
     MatIconModule,
     HttpClientModule,
     MatListModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule
 
 
 
